@@ -97,21 +97,21 @@ def movement_e3
 end
 
 def check_win 
-  a = [@e1_track.length, @e2_track.length, @e3_track.length].sort.last
-  b = [@u1_track.length, @e2_track.length, @e3_track.length].sort.last
-  c = [@u1_track.length, @e1_track.length, @e3_track.length].sort.last
-  d = [@u1_track.length, @e1_track.length, @e2_track.length].sort.last
+a = [@e1_track.join.length, @e2_track.join.length, @e3_track.join.length].sort.last
+b = [@u1_track.join.length, @e2_track.join.length, @e3_track.join.length].sort.last
+c = [@u1_track.join.length, @e1_track.join.length, @e3_track.join.length].sort.last
+d = [@u1_track.join.length, @e1_track.join.length, @e2_track.join.length].sort.last
 
-  if @u1_track.length >= a.to_i
-      puts "#{@user_horse.name} is the winner!!!"
-    elsif @e1_track.length >= b.to_i
-      puts "Hades is the winner!!!" 
-    elsif @e2_track.length >= c.to_i
-      puts "Hans is the winner!!!"
-    elsif @e3_track.length >= d.to_i
-      puts "jafar is the winner!!!"  
-    else
-      puts "i dont know whats going on"
+  if @u1_track.join.length >= a
+    puts "#{@user_horse.name} is the winner!!!"
+  elsif @e1_track.join.length >= b
+    puts "Hades is the winner!!!" 
+  elsif @e2_track.join.length >= c
+    puts "Hans is the winner!!!"
+  elsif @e3_track.join.length >= d
+    puts "jafar is the winner!!!"  
+  else
+    puts "i dont know whats going on"
   end
 end
 
@@ -123,13 +123,4 @@ until (@evil_horse1.turn_count || @evil_horse2.turn_count || @evil_horse3.turn_c
   movement_e2
   movement_e3
 end
-puts check_win
-
-
-
-
-
-
-
-
-
+check_win
