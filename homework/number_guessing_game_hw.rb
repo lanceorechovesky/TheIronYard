@@ -24,5 +24,4 @@ until user_guess == number
 			puts "Your number is to small. Please try again!"
 		end	
 end
-puts "You got it right!!!"
-
+puts "You got it right!!!\n Your so smart!!!!"
