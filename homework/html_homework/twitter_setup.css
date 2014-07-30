@@ -44,15 +44,19 @@ a {padding: 0px 20px 0px 20px;
           margin: 0;
           text-shadow: 1px 1px 1px #31313f;}
 
-.main { height: 285px; }
+.main { height: 285px;
+        width: 100%; }
 
-.header1 { height: 40px; }
+.header1 { height: 40px;
+          width: 100%; }
 
 .header2 { height: 45px;
+        width: 100%;
         background-color: #ededed;
         box-shadow: inset 1px 1px 1px #cccccc; }
 
 .header3 { height: 200px;
+          width: 100%;
           background-image: url("https://g2.twimg.com/about/system/files/styles/hero_3200w_600h/public/about/page/hero/about-frontdoor-hero.jpg");
           background-size: auto 100%;
           box-shadow: inset .5px .5px 1px #191975; }
@@ -66,6 +70,32 @@ a {padding: 0px 20px 0px 20px;
         margin-bottom: -10px;
         height: 35px;
         width: 35px; }
+
+.list4 { height: 500px;
+        width: 100%;
+        padding: 0;
+        text-align: center; }
+
+.h4img {height: 100px;
+        width: 100px;}
+
+.h4h3 { height: 50px;
+      margin: 0px;
+      text-align: right;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
