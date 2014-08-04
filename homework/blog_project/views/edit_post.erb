@@ -1,0 +1,12 @@
+<head><link rel="stylesheet" type="text/css" href="./css/blog_project.css"></head>
+<h3>edit your post here</h3>
+<form action="/edit_post/<%= @posts.id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <label for="titlep">Title</label>
+  <input type="text" id="titlep" name="post[title]" value="<%= @posts.title %>">
+<br>
+  <label for="bodyp">Fix your post</label>
+<br>
+  <textarea name="post[body]" rows="10" cols="50" id="bodyp" value="<%= @posts.body %>"></textarea>
+  <input type="submit" name="commit" value="Edit Post">
+</form>

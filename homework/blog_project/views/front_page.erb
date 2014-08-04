@@ -1,0 +1,21 @@
+<% @posts.each do |post| %>
+ <a class="postlink" href="/edit_post/<%= post.id %>">
+  <strong><%= post.title %></strong><br>
+  <%= post.body %><br>
+  </a>
+  <br>
+  <form action="/delete_post/<%= post.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form><br> 
+<% end %>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+body {background-color: #cccccc;}
+
+a {color: #00001F;}
+
+footer {text-align: center;}
+
+.plh1 {margin: 20px 0 0 0;
+        font-size: 45px;}
+
+.plh2 {margin: 0 0 20px 0;
+        font-size: 35px;}
+
+.title {width: 550px;
+          margin-left: 345px;
+          color: #004C1A;
+          border: 7px  #00001F;
+          border-radius: 60px;
+          text-align: center;
+          box-shadow: inset 5px 5px 5px #00001F;
+          text-shadow: #00001F 1.2px 1.2px;}
+
+.postlink {text-align: center;
+            color: #004C1A; }
