@@ -1,0 +1,11 @@
+<h1>Tell us what's on your mind here!</h1>
+
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+  <br><hr>
+  <%= f.submit %>
+<% end %>
