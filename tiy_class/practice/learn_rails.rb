@@ -22,7 +22,10 @@ def tournament_params
   params.require(:tournament).permit(:name, :description)
 end
 
+you can use _form.html.erb and use <%=render form %> to not type out a form everytime
 
+rails g model post title:string body:text_field
+valadate in the model
 =end
 
 

@@ -1,0 +1,20 @@
+<h1><%= @patient.last_name %>'s<br>Data</h1>
+<br>
+<%= form_for @patient do |f| %>
+  <strong><%= f.label :last_name %> <%= f.label :first_name %></strong><br>
+  <%= @patient.last_name %>
+  <%= @patient.first_name %><br>
+  <strong><%= f.label :dob %></strong><br>
+  <%= @patient.dob %><br>
+  <strong><%= f.label :complaint %></strong><br>
+  <%= @patient.complaint %><br>
+  <strong><%= f.label :sex %></strong><br>
+  <%= @patient.sex %><hr><br>
+<br>
+<% end %>
+
+<%= link_to "Edit", edit_patient_path %><a>--</a>
+<%= link_to "Delete", patient_path, method: :delete %><a>--</a>
+<%= link_to "back", patients_path %>
+
+
