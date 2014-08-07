@@ -1,0 +1,46 @@
+%h1
+  = @patient.last_name
+  's
+  %br>/
+  Data
+%br/
+= form_for @patient do |f|
+  %strong
+    = f.label :last_name
+    = f.label :first_name
+  %br/
+  = @patient.last_name
+  = @patient.first_name
+  %br/
+  %br/
+  %strong= f.label :dob
+  %br/
+  = @patient.dob
+  %br/
+  %br/
+  %strong= f.label :complaint
+  %br/
+  = @patient.complaint
+  %br/
+  %br/
+  %strong= f.label :sex
+  %br/
+  = @patient.sex
+  %br/
+  %br/
+  %strong= f.label :workflow_state
+  %br/
+  = @patient.workflow_state
+  %br/
+  %br/
+  - if @patient.workflow_state == "pay_bill"
+    %strong= "Post Discharge Commit"
+    %br/
+    = @patient.postdis_commit
+  %hr/
+  %br/
+= link_to "Edit", edit_patient_path
+%a ---
+= link_to "Delete", patient_path, method: :delete
+%a ---
+= link_to "back", patients_path

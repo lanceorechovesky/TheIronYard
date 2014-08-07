@@ -27,8 +27,11 @@ class PatientsController < ApplicationController
 
   def update
     @patient = find_patient
-    @patient.update_attributes patient_data
-    redirect_to patients_path
+    if @patient.update_attributes patient_data
+      redirect_to patients_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -37,6 +40,36 @@ class PatientsController < ApplicationController
     redirect_to patients_path
   end
 
+  def with_dr
+    @patient = find_patient.seeing_dr!
+    redirect_to patients_path
+  end
+
+  def admitted
+    @patient = find_patient.admitting!
+    redirect_to patients_path
+  end
+
+  def test
+    @patient = find_patient.testing!
+    redirect_to patients_path
+  end
+
+  def surgery
+    @patient = find_patient.cutting!
+    redirect_to patients_path
+  end
+
+  def prep_dis
+    @patient = find_patient.preping!
+    redirect_to patients_path
+  end
+
+  def pay_bill
+    @patient = find_patient.leaving!
+    redirect_to patients_path
+  end
+  
 private
 
   def find_patient
@@ -44,6 +77,6 @@ private
   end
 
   def patient_data
-    params.require(:patient).permit(:first_name, :last_name, :dob, :complaint, :sex)
+    params.require(:patient).permit(:first_name, :last_name, :dob, :complaint, :sex, :workflow_state, :postdis_commit)
   end
 end

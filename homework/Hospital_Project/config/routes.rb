@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
   root 'home#title'
-  resources :patients
+  resources :patients do
+    member do
+      put :waiting_room
+      put :with_dr
+      put :admitted
+      put :test
+      put :surgery
+      put :prep_dis
+      put :pay_bill
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -17,7 +27,7 @@ Rails.application.routes.draw do
   #   resources :products
 
   # Example resource route with options:
-  #   resources :products do
+  #   resources :patients do
   #     member do
   #       get 'short'
   #       post 'toggle'
