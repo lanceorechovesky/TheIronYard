@@ -1,0 +1,47 @@
+%h1
+  Edit #{@hospital.name}'s info
+= form_for @hospital do |f|
+  %ul
+    - if @hospital.errors.any?
+      = "#{pluralize(@hospital.errors.count, "error")} prohibited this hospital from being saved:"
+      - @hospital.errors.full_messages.each do |msg|
+        %li
+          = msg
+  = link_to "back", hospital_path(@hospital)
+  %hr/
+  %br/
+  = f.label :name
+  %br/
+  = f.text_field :name
+  %br/
+  %br/
+  = f.label :address
+  %br/
+  = f.text_field :address
+  %br/
+  %br/
+  = f.label :phone_number
+  %br/
+  = f.text_field :phone_number
+  %br/
+  %br/
+  = f.submit "Edit"
+%hr/
+%h3 Add a Doctor
+= form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|
+  = f.label :name
+  = f.text_field :name
+  %br/
+  =f.submit "Add Doctor"
+
+
+
+
+
+
+
+
+
+
+
+

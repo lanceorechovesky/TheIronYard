@@ -20,6 +20,11 @@ class HospitalsController < ApplicationController
     end
   end
 
+  def edit
+    @hospital = find_hospital
+    @doctor = @hospital.doctors.new
+  end
+
   def destroy
     @hospital = find_hospital
     @hospital.delete
@@ -31,38 +36,34 @@ class HospitalsController < ApplicationController
     redirect_to hospital_patients_path(@hospital)
   end
 
-  # def admitted
-  #   @patient = find_hospital.admitting!
-  #   redirect_to hospital_patients_path(@hospital)
-  # end
+  def create_doctor
+    @hospital = find_hospital
+    @hospital.doctors.create doc_data
+    redirect_to @hospital
+  end
 
-  # def test
-  #   @patient = find_hospital.testing!
-  #   redirect_to hospital_patients_path(@hospital)
-  # end
-
-  # def surgery
-  #   @patient = find_hospital.cutting!
-  #   redirect_to hospital_patients_path(@hospital)
-  # end
-
-  # def prep_dis
-  #   @patient = find_hospital.preping!
-  #   redirect_to hospital_patients_path(@hospital)
-  # end
-
-  # def pay_bill
-  #   @patient = find_hospital.leaving!
-  #   redirect_to hospital_patients_path(@hospital)
-  # end
+  def destroy_doctor
+    @hospital = find_hospital
+    @doctor = find_doc
+    @doctor.delete
+    redirect_to @hospital
+  end
   
 private
+  def find_doc
+    @doctor = Doctor.find params[:doctor_id]
+  end
+
   def find_hospital
     @hospital = Hospital.find params[:id]
   end
 
   def hospital_data
     params.require(:hospital).permit(:name, :address, :phone_number, :workflow_state)
+  end
+
+  def doc_data
+    params.require(:doctor).permit(:name)
   end
 end
 

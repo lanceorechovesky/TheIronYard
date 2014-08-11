@@ -4,27 +4,54 @@
 = link_to "back", hospitals_path
 %hr/
 %br/
-= form_for @hospital do |f|
-  %strong
-    = f.label :name
-  %br/
-  = @hospital.name
-  %br/
-  %br/
-  %strong
-    = f.label :address
-  %br/
-  = @hospital.address
-  %br/
-  %br/
-  %strong
-    = f.label :phone_number
-  %br/
-  = @hospital.phone_number
+%ul
+%strong
+  = "name"
 %br/
+= @hospital.name
+%br/
+%br/
+%strong
+  = "address"
+%br/
+= @hospital.address
+%br/
+%br/
+%strong
+  = "Phone Number"
+%br/
+= @hospital.phone_number
+%br/
+%br/
+%strong
+  = "Doctors on call"
+%br/
+- @hospital.doctors.each do |doc|
+  - if doc.name
+    = doc.name
+    = link_to "*remove*", destroy_doctor_hospital_path(@hospital, doctor_id: doc.id), method: :delete
+    %br/
 %hr/
   
 = link_to "Patients", hospital_patients_path(@hospital)
+%a ---
+= link_to "edit", edit_hospital_path(@hospital)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

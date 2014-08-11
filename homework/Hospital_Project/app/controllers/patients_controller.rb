@@ -28,6 +28,7 @@ class PatientsController < ApplicationController
   def edit
     @patient = find_patient
     @hospital = find_hospital
+    @doctor = @patient.doctors.new
   end
 
   def update
@@ -44,6 +45,21 @@ class PatientsController < ApplicationController
     @patient = find_patient
     @patient.delete
     redirect_to hospital_patients_path(@hospital)
+  end
+
+  def create_doctor
+    @hospital = find_hospital
+    @patient = find_patient
+    @doctor = @patient.doctors.create doc_data
+    redirect_to hospital_patient_path(@hospital, @patient)
+  end
+
+  def destroy_doctor
+    @hospital = find_hospital
+    @patient = find_patient
+    @doctor = find_doc
+    @doctor.delete
+    redirect_to hospital_patient_path(@hospital, @patient)
   end
 
   def with_dr
@@ -83,6 +99,10 @@ class PatientsController < ApplicationController
   end
   
 private
+  def find_doc
+    @doctor = Doctor.find params[:doctor_id]
+  end
+
   def find_hospital
     @hospital = Hospital.find params[:hospital_id]
   end
@@ -93,5 +113,9 @@ private
 
   def patient_data
      params.require(:patient).permit(:first_name, :last_name, :dob, :complaint, :sex, :workflow_state, :postdis_commit, :hospital_id)
+  end
+
+  def doc_data
+    params.require(:doctor).permit(:name)
   end
 end

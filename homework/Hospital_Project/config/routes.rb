@@ -2,9 +2,14 @@ Rails.application.routes.draw do
   root 'home#title'
 
   resources :hospitals do
+    member do
+      post :create_doctor
+      delete :destroy_doctor
+    end
     resources :patients do
-      resources :medications
       member do
+        post :create_doctor
+        delete :destroy_doctor
         put :waiting_room
         put :with_dr
         put :admitted
@@ -13,6 +18,7 @@ Rails.application.routes.draw do
         put :prep_dis
         put :pay_bill
       end
+      resources :medications
     end
   end
 end

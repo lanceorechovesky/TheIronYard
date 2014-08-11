@@ -1,5 +1,6 @@
 %h1
   Edit #{@patient.last_name}'s info
+= link_to "back", hospital_patient_path
 = form_for [@hospital, @patient] do |f|
   %ul
     - if @patient.errors.any?
@@ -21,11 +22,14 @@
   = f.text_field :complaint
   %br/
   = f.label :sex
+  %br/
   = f.collection_radio_buttons(                                                           |
     :sex, [['Male', 'Male'], ['Female', 'Female'], ['Asexual','Asexual']], :first, :last) |
   %br/
-  = "Patient Status"
   %br/
+  = f.submit
+  %br/
+  = "Patient Status"
   %br/
   - if @patient.workflow_state == "waiting_room"
     = link_to "seeing dr", with_dr_hospital_patient_path, method: :put
@@ -57,10 +61,17 @@
   - if @patient.workflow_state == "pay_bill"  
     = f.label :postdis_commit
     = f.text_field :postdis_commit
-  %hr/
   %br/
-  = f.submit
-  = link_to "back", hospital_patient_path
+  %hr/
+  
+= "Add Doctor to team"  
+= form_for @doctor, url: create_doctor_hospital_patient_path(@hospital, @patient) do |f|
+  = f.label :name
+  = f.text_field :name
+  %br/
+  =f.submit "Add Doctor"
+
+
 
 
 / add an if statment to display the postdis_commit feild gen

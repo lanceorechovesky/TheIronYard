@@ -38,8 +38,16 @@
     %strong= "Post Discharge Commit"
     %br/
     = @patient.postdis_commit
-  %hr/
-  %br/
+  - else
+    %strong= "Doctor Team"
+    %br/
+    - @patient.doctors.each do |doc|
+      - if doc.name
+        = doc.name
+        = link_to "*remove*", destroy_doctor_hospital_patient_path(@hospital, @patient, doctor_id: doc.id), method: :delete
+        %br/
+%hr/
+%br/
 = link_to "patient Medications", hospital_patient_medications_path(@hospital, @patient)
 %a --- 
 = link_to "Edit", edit_hospital_patient_path
