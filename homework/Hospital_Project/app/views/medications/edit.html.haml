@@ -1,0 +1,29 @@
+%h1 
+  ="Edit #{@medication.name}"
+= form_for [@hospital, @patient, @medication] do |f|
+  %ul
+    - if @medication.errors.any?
+      = "#{pluralize(@medication.errors.count, "error")} prohibited this medication from being saved:"
+      - @medication.errors.full_messages.each do |msg|
+        %li
+          = ms
+  %hr/  
+  %br/
+  =f.label :name        
+  %br/
+  =f.text_field :name
+  %br/
+  %br/
+  =f.label :dose
+  %br/
+  =f.text_field :dose
+  %br/
+  %br/
+  =f.label :restricted
+  %br/
+  = f.collection_radio_buttons( :restricted, [['false', 'No'], ['true', 'yes']], :first, :last,)
+  %br/
+  =f.submit "Edit"  
+  %hr/
+  %br/
+  = link_to "back", hospital_patient_medication_path

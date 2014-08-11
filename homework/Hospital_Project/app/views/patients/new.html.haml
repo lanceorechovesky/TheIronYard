@@ -1,5 +1,5 @@
 %h1 Add patient here
-= form_for @patient do |f|
+= form_for [@hospital, @patient] do |f|
   %ul
     - if @patient.errors.any?
       = "#{pluralize(@patient.errors.count, "error")} prohibited this patient from being saved:"
@@ -22,9 +22,9 @@
   = f.label :sex
   = f.collection_radio_buttons(                                                             |
       :sex, [['Male', 'Male'], ['Female', 'Female'], ['Asexual','Asexual']], :first, :last, |
-    )                                                                                       |
+    )                                                                                     |
   %hr/
   %br/
   = f.submit
   %a ---
-  = link_to "back", patients_path
+  = link_to "back", hospital_patients_path(@hospital)

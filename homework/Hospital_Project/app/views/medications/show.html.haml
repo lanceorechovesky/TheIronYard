@@ -1,0 +1,35 @@
+%h1 
+  = "#{@medication.name}'s info"
+= link_to "back", hospital_patient_medications_path
+%a ---
+= link_to "home", root_path
+%hr/
+%br/
+
+= form_for [@hospital, @patient, @medication] do |f|
+
+  %strong 
+    = f.label :name
+  %br/
+  = @medication.name
+  %br/
+  %br/
+  %strong
+    =f.label :dose
+  %br/
+  = @medication.dose 
+  = "milligrams"
+  %br/
+  %br/
+  %strong
+    =f.label :restricted
+  %br/
+  - if @medication.restricted == false
+    = "no"
+  - else
+    = "yes"
+%hr/
+%br/
+= link_to "edit", edit_hospital_patient_medication_path
+%a ---
+= link_to "remove medication", hospital_patient_medication_path, method: :delete

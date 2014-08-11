@@ -3,8 +3,9 @@
   's
   %br>/
   Data
+%hr/
 %br/
-= form_for @patient do |f|
+= form_for [@hospital, @patient] do |f|
   %strong
     = f.label :last_name
     = f.label :first_name
@@ -39,8 +40,10 @@
     = @patient.postdis_commit
   %hr/
   %br/
-= link_to "Edit", edit_patient_path
+= link_to "patient Medications", hospital_patient_medications_path(@hospital, @patient)
+%a --- 
+= link_to "Edit", edit_hospital_patient_path
 %a ---
-= link_to "Delete", patient_path, method: :delete
+= link_to "Delete", hospital_patient_path, method: :delete
 %a ---
-= link_to "back", patients_path
+= link_to "back", hospital_patients_path(@hospital)

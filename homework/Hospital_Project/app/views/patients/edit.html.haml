@@ -1,6 +1,6 @@
 %h1
   Edit #{@patient.last_name}'s info
-= form_for @patient do |f|
+= form_for [@hospital, @patient] do |f|
   %ul
     - if @patient.errors.any?
       = "#{pluralize(@patient.errors.count, "error")} prohibited this patient from being saved:"
@@ -28,39 +28,39 @@
   %br/
   %br/
   - if @patient.workflow_state == "waiting_room"
-    = link_to "seeing dr", with_dr_patient_path(f.object), method: :put
-    = link_to "admit", admitted_patient_path(f.object), method: :put
+    = link_to "seeing dr", with_dr_hospital_patient_path, method: :put
+    = link_to "admit", admitted_hospital_patient_path, method: :put
   - if @patient.workflow_state == "with_dr"
-    = link_to "admit", admitted_patient_path(f.object), method: :put
-    = link_to "Testing", test_patient_path(f.object), method: :put
-    = link_to "surgery", surgery_patient_path(f.object), method: :put
-    = link_to "discharging", prep_dis_patient_path(f.object), method: :put
+    = link_to "admit", admitted_hospital_patient_path, method: :put
+    = link_to "Testing", test_hospital_patient_path, method: :put
+    = link_to "surgery", surgery_hospital_patient_path, method: :put
+    = link_to "discharging", prep_dis_hospital_patient_path, method: :put
   - if @patient.workflow_state == "admitted"
-    = link_to "dr confrence", with_dr_patient_path(f.object), method: :put
-    = link_to "Testing", test_patient_path(f.object), method: :put
-    = link_to "surgery", surgery_patient_path(f.object), method: :put
-    = link_to "discharging", prep_dis_patient_path(f.object), method: :put
+    = link_to "dr confrence", with_dr_hospital_patient_path, method: :put
+    = link_to "Testing", test_hospital_patient_path, method: :put
+    = link_to "surgery", surgery_hospital_patient_path, method: :put
+    = link_to "discharging", prep_dis_hospital_patient_path, method: :put
   - if @patient.workflow_state == "test"
-    = link_to "dr confrence", with_dr_patient_path(f.object), method: :put
-    = link_to "admit", admitted_patient_path(f.object), method: :put
-    = link_to "surgery", surgery_patient_path(f.object), method: :put
+    = link_to "dr confrence", with_dr_hospital_patient_path, method: :put
+    = link_to "admit", admitted_hospital_patient_path, method: :put
+    = link_to "surgery", surgery_hospital_patient_path, method: :put
   - if @patient.workflow_state == "surgery"
-    = link_to "dr confrence", with_dr_patient_path(f.object), method: :put
-    = link_to "admit", admitted_patient_path(f.object), method: :put
-    = link_to "Testing", test_patient_path(f.object), method: :put
+    = link_to "dr confrence", with_dr_hospital_patient_path, method: :put
+    = link_to "admit", admitted_hospital_patient_path, method: :put
+    = link_to "Testing", test_hospital_patient_path, method: :put
   - if @patient.workflow_state == "prep_dis"
-    = link_to "admit", admitted_patient_path(f.object), method: :put
-    = link_to "dr confrence", with_dr_patient_path(f.object), method: :put
-    = link_to "Testing", test_patient_path(f.object), method: :put
-    = link_to "surgery", surgery_patient_path(f.object), method: :put
-    = link_to "Paying", pay_bill_patient_path(f.object), method: :put
+    = link_to "admit", admitted_hospital_patient_path, method: :put
+    = link_to "dr confrence", with_dr_hospital_patient_path, method: :put
+    = link_to "Testing", test_hospital_patient_path, method: :put
+    = link_to "surgery", surgery_hospital_patient_path, method: :put
+    = link_to "Paying", pay_bill_hospital_patient_path, method: :put
   - if @patient.workflow_state == "pay_bill"  
     = f.label :postdis_commit
     = f.text_field :postdis_commit
   %hr/
   %br/
   = f.submit
-  = link_to "back", patient_path
+  = link_to "back", hospital_patient_path
 
 
 / add an if statment to display the postdis_commit feild gen

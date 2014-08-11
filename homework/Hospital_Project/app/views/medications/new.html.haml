@@ -1,0 +1,17 @@
+%h1 What medication are you adding?
+= form_for [@hospital, @patient, @medication] do |f|
+
+  %hr/
+  = f.label :name
+  %br/
+  = f.text_field :name
+  %br/
+  = f.label :dose
+  %br/
+  =f.text_field :dose
+  %br/
+  =f.label :restricted
+  %br/
+  = f.collection_radio_buttons( :restricted, [['false', 'No'], ['true', 'yes']], :first, :last,)
+  %br/
+  =f.submit "Add"

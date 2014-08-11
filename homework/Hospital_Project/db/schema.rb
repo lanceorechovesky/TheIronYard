@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806222249) do
+ActiveRecord::Schema.define(version: 20140808033452) do
+
+  create_table "hospitals", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone_number"
+    t.string   "workflow_state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "medications", force: true do |t|
+    t.string   "name"
+    t.integer  "patient_id"
+    t.integer  "dose"
+    t.boolean  "restricted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "patients", force: true do |t|
     t.string   "first_name"
@@ -23,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140806222249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "postdis_commit"
+    t.integer  "hospital_id"
   end
 
 end

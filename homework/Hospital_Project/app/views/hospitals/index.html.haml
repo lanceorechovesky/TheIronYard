@@ -1,0 +1,14 @@
+%h1 Hospital Databases
+= link_to "Add Hospital", new_hospital_path
+%a ---
+= link_to "home", root_path
+%hr/
+%br/
+
+- @hospital.each do |hos|
+  %ol
+    = link_to hos.name, hospital_path(hos)
+    %br/
+    %strong= hos.workflow_state
+    %br/
+

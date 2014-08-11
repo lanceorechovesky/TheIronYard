@@ -1,13 +1,15 @@
 %h1 Patient Databank
-= link_to "Add Patient", new_patient_path
+= link_to "Add Patient", new_hospital_patient_path(@hospital)
+%a --
+= link_to "back", hospital_path(@hospital)
 %a --
 = link_to "home", root_path
 %hr/ 
 %br/
-- @patient.each do |pat|
+- @hospital.patients.each do |pat|
   %ol
-    = link_to pat.last_name, patient_path(pat)
-    = link_to pat.first_name, patient_path(pat)
+    = link_to pat.last_name, hospital_patient_path(@hospital, pat)
+    = link_to pat.first_name, hospital_patient_path(@hospital, pat)
     %br/
     = pat.dob
     %strong= pat.workflow_state

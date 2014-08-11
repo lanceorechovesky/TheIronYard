@@ -1,0 +1,18 @@
+%h1 list of patient medications
+= link_to "add medication", new_hospital_patient_medication_path(@hospital, @patient)
+%a ---
+= link_to "back", hospital_patient_path(@hospital, @patient)
+%a --- 
+= link_to "home", root_path
+%hr/
+%br/
+-@patient.medications.each do |med|
+  %ol
+    = link_to med.name, hospital_patient_medication_path(@hospital, @patient, med)
+    %br/
+    = "is restricted?"
+    %br/
+    - if med.restricted == false
+      = "no"
+    - else
+      = "yes"

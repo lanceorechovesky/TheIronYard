@@ -1,0 +1,32 @@
+%h1 
+  = "#{@hospital.name}'s Databank"
+%br/
+= link_to "back", hospitals_path
+%hr/
+%br/
+= form_for @hospital do |f|
+  %strong
+    = f.label :name
+  %br/
+  = @hospital.name
+  %br/
+  %br/
+  %strong
+    = f.label :address
+  %br/
+  = @hospital.address
+  %br/
+  %br/
+  %strong
+    = f.label :phone_number
+  %br/
+  = @hospital.phone_number
+%br/
+%hr/
+  
+= link_to "Patients", hospital_patients_path(@hospital)
+
+
+
+
+
