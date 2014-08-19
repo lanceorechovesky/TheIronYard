@@ -25,9 +25,10 @@
               %li
                 = link_to "Add Hospital", new_hospital_path
               %li.divider
-              - @hospital.each do |hos|
-                %li
-                  = link_to "#{hos.name}", hospital_path(hos)
+                %li.dropdown-header{:role => "presentation"} Hospitals 
+                - @hospital.each do |hos|
+                  %li
+                    = link_to "#{hos.name}", hospital_path(hos)
       / %a{:href => "#"} Separated link= link_to "Patients", hospital_patients_path(@hospital)
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
@@ -43,17 +44,18 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
-
-- @hospital.each do |hos|
-  .panel.panel-success
-    .panel-heading
-      %h2.panel-title 
-        = link_to "#{hos.name}", hospital_path(hos)
-    .panel-body
-      = "#{hos.address}"
-      %br
-      = "#{hos.phone_number}"
-    %br/
+.row.text-center
+  .col-md-12
+    - @hospital.each do |hos|
+      .panel.panel-success
+        .panel-heading
+          %h1.panel-title 
+            = link_to "#{hos.name}", hospital_path(hos)
+        .panel-body
+          = "#{hos.address}"
+          %br
+          = "#{hos.phone_number}"
+        %br/
 
 
 

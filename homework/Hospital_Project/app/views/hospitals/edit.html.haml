@@ -1,39 +1,78 @@
-%h1
-  Edit #{@hospital.name}'s info
-= form_for @hospital do |f|
-  %ul
-    - if @hospital.errors.any?
-      = "#{pluralize(@hospital.errors.count, "error")} prohibited this hospital from being saved:"
-      - @hospital.errors.full_messages.each do |msg|
-        %li
-          = msg
-  = user_login_links
-  = link_to "back", hospital_path(@hospital)
-  %hr/
-  %br/
-  = f.label :name
-  %br/
-  = f.text_field :name
-  %br/
-  %br/
-  = f.label :address
-  %br/
-  = f.text_field :address
-  %br/
-  %br/
-  = f.label :phone_number
-  %br/
-  = f.text_field :phone_number
-  %br/
-  %br/
-  = f.submit "Edit"
-%hr/
-%h3 Add a Doctor
-= form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|
-  = f.label :name
-  = f.text_field :name
-  %br/
-  =f.submit "Add Doctor"
+%nav.navbar.navbar-default{:role => "navigation"}
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{:href => "/"} Home
+    / Collect the nav links, forms, and other content for toggling
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li.active
+          - if user_signed_in?
+            = content_tag(:a, current_user.email)
+          - else
+            = link_to "Log In", new_user_session_path
+        - if user_signed_in?
+          %li
+            = link_to "Hospitals", hospitals_path
+          %li
+            = link_to "#{@hospital.name}", hospital_path(@hospital)
+      / %a{:href => "#"} Separated link= link_to "Patients", hospital_patients_path(@hospital)
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Account
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                = link_to "Edit", edit_user_registration_path
+              %li.divider
+              %li
+                = link_to "Log Out", destroy_user_session_path, method: :delete
+    / /.navbar-collapse
+  / /.container-fluid
+
+.row.text-center
+  .col-md-6 
+    %h3 
+      = "Edit #{@hospital.name}'s Data"
+    = form_for @hospital do |f|
+      %ul
+        - if @hospital.errors.any?
+          = "#{pluralize(@hospital.errors.count, "error")} prohibited this hospital from being saved:"
+          - @hospital.errors.full_messages.each do |msg|
+            %li
+              = msg
+     
+      = f.label :name
+      %br/
+      = f.text_field :name
+      %br/
+      %br/
+      = f.label :address
+      %br/
+      = f.text_field :address
+      %br/
+      %br/
+      = f.label :phone_number
+      %br/
+      = f.text_field :phone_number
+      %br/
+      %br/
+      = f.submit "Edit"
+  .col-md-4
+    %h3 Add a Doctor
+    = form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|
+      = f.label :name 
+      %br
+      = f.text_field :name
+      %br/
+      =f.submit "Put Doctor On Call"
 
 
 

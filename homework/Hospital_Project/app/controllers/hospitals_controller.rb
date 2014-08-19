@@ -27,6 +27,15 @@ class HospitalsController < ApplicationController
     @doctor = @hospital.doctors.new
   end
 
+  def update
+    @hospital = find_hospital
+    if @hospital.update_attributes hospital_data
+      redirect_to hospital_path(@hospital)
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @hospital = find_hospital
     @hospital.delete

@@ -19,8 +19,30 @@
         - if user_signed_in?
           %li
             = link_to "Hospitals", hospitals_path
-          %li
-            = link_to "Patients", hospital_patients_path(@hospital)
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Edit
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                = link_to "#{@hospital.name}'s Data", edit_hospital_path(@hospital)
+              %li.divider
+                %li.dropdown-header{:role => "presentation"} Remove Doctors                 
+                - @hospital.doctors.each do |doc|
+                  %li
+                    = link_to "#{doc.name}", destroy_doctor_hospital_path(@hospital, doctor_id: doc.id), method: :delete
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Patients
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                = link_to "All patients", hospital_patients_path(@hospital)
+              %li.divider
+              %li.dropdown-header{:role => "presentation"} Patient List 
+              - @hospital.patients.each do |pat|
+                %li
+                  = link_to "#{pat.last_name}", hospital_patient_path(@hospital, pat)
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -39,43 +61,40 @@
 
 
 
-
-
-%h1 
-  = "#{@hospital.name}'s Databank"
-%ul
-%strong
-  = "name"
-%br/
-= @hospital.name
-%br/
-%br/
-%strong
-  = "address"
-%br/
-= @hospital.address
-%br/
-%br/
-%strong
-  = "Phone Number"
-%br/
-= @hospital.phone_number
-%br/
-%br/
-%strong
-  = "Doctors on call"
-%br/
-- @hospital.doctors.each do |doc|
-  - if doc.name
-    = doc.name
-    = link_to "*remove*", destroy_doctor_hospital_path(@hospital, doctor_id: doc.id), method: :delete
-    %br/
-%hr/
-  
-= link_to "Patients", hospital_patients_path(@hospital)
-%a ---
-= link_to "edit", edit_hospital_path(@hospital)
-
+.row.text-center
+  .col-md-12
+    .panel.panel-success
+      .panel-heading
+        %h1.panel-title 
+          = link_to "#{@hospital.name}'s Data", edit_hospital_path(@hospital)
+      .panel-body
+        %ul
+        %strong
+          = "name"
+        %br/
+        = @hospital.name
+        %br/
+        %br/
+        %strong
+          = "address"
+        %br/
+        = @hospital.address
+        %br/
+        %br/
+        %strong
+          = "Phone Number"
+        %br/
+        = @hospital.phone_number
+        %br/
+        %br/
+        %strong
+          = "Doctors on call"
+        %br/
+        - @hospital.doctors.each do |doc|
+          - if doc.name
+            = doc.name
+            = link_to "*remove*", destroy_doctor_hospital_path(@hospital, doctor_id: doc.id), method: :delete
+            %br/
 
 
 
