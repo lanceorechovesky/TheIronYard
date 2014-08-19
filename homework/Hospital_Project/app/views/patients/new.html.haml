@@ -1,4 +1,6 @@
 %h1 Add patient here
+= user_login_links
+= link_to "back", hospital_patients_path(@hospital)
 = form_for [@hospital, @patient] do |f|
   %ul
     - if @patient.errors.any?
@@ -26,5 +28,5 @@
   %hr/
   %br/
   = f.submit
-  %a ---
-  = link_to "back", hospital_patients_path(@hospital)
+
+  

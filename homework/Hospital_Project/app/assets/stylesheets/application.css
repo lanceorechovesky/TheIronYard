@@ -12,9 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap
+ *= require bootstrap-theme
  */
-body {background-color: #cccccc;
-  color: #004C1A;
-  text-align: center;}
-
-a {color: #00001F;}

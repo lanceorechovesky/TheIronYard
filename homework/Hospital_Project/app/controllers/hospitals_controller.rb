@@ -1,4 +1,6 @@
 class HospitalsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @hospital = Hospital.all
   end

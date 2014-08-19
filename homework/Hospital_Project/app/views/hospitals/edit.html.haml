@@ -7,6 +7,7 @@
       - @hospital.errors.full_messages.each do |msg|
         %li
           = msg
+  = user_login_links
   = link_to "back", hospital_path(@hospital)
   %hr/
   %br/

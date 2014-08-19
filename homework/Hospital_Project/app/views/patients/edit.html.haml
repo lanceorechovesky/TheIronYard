@@ -1,5 +1,6 @@
 %h1
   Edit #{@patient.last_name}'s info
+= user_login_links
 = link_to "back", hospital_patient_path
 = form_for [@hospital, @patient] do |f|
   %ul
