@@ -10,15 +10,20 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  *= require bootstrap
  *= require bootstrap-theme
+ *= require_tree .
+
  */
 /*.intro {color: #00003D;}*/
 /*blue = #1F1F99*/
 /*green = #007A00*/
+
+
 body {background-color: #eee;}
+
+
 
 input.invalid, email.invalid{
   border: 3px solid red;

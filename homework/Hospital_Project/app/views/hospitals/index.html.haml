@@ -1,3 +1,4 @@
+- javascript 'hospitals.js'
 %nav.navbar.navbar-default{:role => "navigation"}
   .container-fluid
     / Brand and toggle get grouped for better mobile display
@@ -26,10 +27,14 @@
                 = link_to "Add Hospital", new_hospital_path
               %li.divider
                 %li.dropdown-header{:role => "presentation"} Hospitals 
-                - @hospital.each do |hos|
+                - @hospitals.each do |hos|
                   %li
                     = link_to "#{hos.name}", hospital_path(hos)
-      / %a{:href => "#"} Separated link= link_to "Patients", hospital_patients_path(@hospital)
+            %li
+              = text_field_tag '', '', class: "hospital_search"
+            %li  
+              = link_to "find hospital", 'javascript:void(0);', class: "search_hospitals"   
+      
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -44,9 +49,11 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
+
 .row.text-center 
   .col-md-12
-    - @hospital.each do |hos|
+    %ul.search_list
+    - @hospitals.each do |hos|
       .panel.panel-success.hospital_list
         .panel-heading
           %h1.panel-title 

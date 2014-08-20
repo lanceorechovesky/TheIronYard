@@ -3,7 +3,11 @@ class HospitalsController < ApplicationController
   before_action :find_hospital, only: [:show, :edit, :update, :destroy, :create_doctor, :destroy_doctor]
 
   def index
-    @hospital = Hospital.all
+    @hospitals = Hospital.all
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def show
@@ -53,6 +57,13 @@ class HospitalsController < ApplicationController
     @doctor = find_doc
     @doctor.delete
     redirect_to @hospital
+  end
+
+  def search_hospitals
+    @hospitals = Hospital.where("name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
   
 private

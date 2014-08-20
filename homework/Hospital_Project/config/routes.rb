@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'home#title'
+  get '/search_hospitals' => 'hospitals#search_hospitals'
 
   resources :hospitals do
     member do
