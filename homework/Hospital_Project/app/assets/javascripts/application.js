@@ -18,10 +18,12 @@
 $(document).ready(function() {
 
   console.log($('body'))
-  
+
   var clean_email = $('input#user_email').val();
+  var valdate = $('')
 
   $('input#user_email').addClass("valid")
+  $('#user_password_confirmation').addClass("valid")
 
   $('input#user_email').on( 'input', function() {
     var user_email = $( this ).val();
@@ -34,6 +36,28 @@ $(document).ready(function() {
     }
   })
 
+  $('input#user_password').on( 'input', function() {
+    var passw = $( this ).val();
+    var pass_confirm = $( '#user_password_confirmation' ).val();
+    var inputs_right = passw == pass_confirm;
+    if(inputs_right){
+      $('#user_password_confirmation').removeClass("invalid").addClass("valid")
+    }
+    else{
+      $('#user_password_confirmation').removeClass("valid").addClass("invalid")
+    }
+  })
 
+  $('input#user_password_confirmation').on( 'input', function() {
+    var passw = $( '#user_password' ).val();
+    var pass_confirm = $( this ).val();
+    var inputs_right = passw == pass_confirm;
+    if(inputs_right){
+      $('#user_password_confirmation').removeClass("invalid").addClass("valid")
+    }
+    else{
+      $('#user_password_confirmation').removeClass("valid").addClass("invalid")
+    }
+  })
     
 })
