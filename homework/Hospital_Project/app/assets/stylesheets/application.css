@@ -16,6 +16,9 @@
  *= require bootstrap-theme
  */
 /*.intro {color: #00003D;}*/
+/*blue = #1F1F99*/
+/*green = #007A00*/
+body {background-color: #eee;}
 
 input.invalid, email.invalid{
   border: 3px solid red;
