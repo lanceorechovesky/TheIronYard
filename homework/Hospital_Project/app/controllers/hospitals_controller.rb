@@ -1,12 +1,12 @@
 class HospitalsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_hospital, only: [:show, :edit, :update, :destroy, :create_doctor, :destroy_doctor]
 
   def index
     @hospital = Hospital.all
   end
 
   def show
-    @hospital = find_hospital
   end
 
   def new
@@ -23,12 +23,10 @@ class HospitalsController < ApplicationController
   end
 
   def edit
-    @hospital = find_hospital
     @doctor = @hospital.doctors.new
   end
 
   def update
-    @hospital = find_hospital
     if @hospital.update_attributes hospital_data
       redirect_to hospital_path(@hospital)
     else
@@ -37,7 +35,6 @@ class HospitalsController < ApplicationController
   end
 
   def destroy
-    @hospital = find_hospital
     @hospital.delete
     redirect_to hospitals_path
   end
@@ -48,13 +45,11 @@ class HospitalsController < ApplicationController
   end
 
   def create_doctor
-    @hospital = find_hospital
     @hospital.doctors.create doc_data
     redirect_to @hospital
   end
 
   def destroy_doctor
-    @hospital = find_hospital
     @doctor = find_doc
     @doctor.delete
     redirect_to @hospital
