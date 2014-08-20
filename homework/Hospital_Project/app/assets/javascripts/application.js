@@ -14,3 +14,26 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+
+$(document).ready(function() {
+
+  console.log($('body'))
+  
+  var clean_email = $('input#user_email').val();
+
+  $('input#user_email').addClass("valid")
+
+  $('input#user_email').on( 'input', function() {
+    var user_email = $( this ).val();
+    var is_email = clean_email === user_email;
+    if(is_email){
+      $(this).removeClass("invalid").addClass("valid")
+    }
+    else{
+      $(this).removeClass("valid").addClass("invalid")
+    }
+  })
+
+
+    
+})

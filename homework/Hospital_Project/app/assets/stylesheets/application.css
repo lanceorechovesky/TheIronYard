@@ -15,3 +15,11 @@
  *= require bootstrap
  *= require bootstrap-theme
  */
+input.invalid, email.invalid{
+  border: 5px solid red;
+  }
+ 
+input.valid, email.valid{
+  border: 5px solid green;
+  }
+

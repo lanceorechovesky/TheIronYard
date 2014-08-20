@@ -44,10 +44,10 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
-.row.text-center
+.row.text-center 
   .col-md-12
     - @hospital.each do |hos|
-      .panel.panel-success
+      .panel.panel-success.hospital_list
         .panel-heading
           %h1.panel-title 
             = link_to "#{hos.name}", hospital_path(hos)
