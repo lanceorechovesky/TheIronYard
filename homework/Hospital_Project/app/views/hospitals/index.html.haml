@@ -23,14 +23,15 @@
           %li
             %form.navbar-form.navbar-left{:role => "search"}
               .input-group
-                %input.form-control{:placeholder => "Search", :type => "text", :class => "hospital_search"}
+                %input.form-control{:placeholder => "Find Hospital", :type => "text", :class => "hospital_search"}
                   %span.input-group-btn
                     %button.btn.btn-default{:type => "button", :class => "search_hospitals"} Go
-
-      /         = text_field_tag '', '', class: "hospital_search"
-      /           %span.input-group-btn
-      /             %button.btn.btn-success{:type => "button"}          
-      /               = link_to "Go", 'javascript:void(0);', class: "search_hospitals"      
+          / %li
+          /   %form.navbar-form.navbar-left{:role => "search"}
+          /     .input-group
+          /       %input.form-control{:placeholder => "Find Patient", :type => "text", :class => "patient_search"}
+          /         %span.input-group-btn
+          /           %button.btn.btn-default{:type => "button", :class => "search_patients"} Go
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -47,7 +48,8 @@
   / /.container-fluid
 
 .row.text-center 
-  .col-md-12
+  .col-md-1
+  .col-md-10
     %ul.search_list
     - @hospitals.each do |hos|
       .panel.panel-success.hospital_list

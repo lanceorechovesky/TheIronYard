@@ -1,3 +1,15 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).ready(function() {
+
+  console.log($('body'))
+  
+  $(".search_hospital_patients").click( function() {
+    var link = $(this).attr("link")
+    console.log($('.hospital_patient_search').val())
+    $.ajax({
+      url: link,
+      dataType: "script",
+      type: "GET",
+      data: {q: $('.hospital_patient_search').val()}
+    })
+  })
+})

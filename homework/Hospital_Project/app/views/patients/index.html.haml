@@ -1,3 +1,4 @@
+- javascript 'patients.js'
 %nav.navbar.navbar-default{:role => "navigation"}
   .container-fluid
     / Brand and toggle get grouped for better mobile display
@@ -17,20 +18,26 @@
           - else
             = link_to "Log In", new_user_session_path
         - if user_signed_in?
-          %li
-            = link_to "#{@hospital.name}", hospital_path(@hospital)
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              Patients
+              Hospital
               %span.caret
             %ul.dropdown-menu{:role => "menu"}
+              %li.dropdown-header{:role => "presentation"} Current Hospital
               %li
-                = link_to "Add Patient", new_hospital_patient_path(@hospital)
+                = link_to "#{@hospital.name}'s Data", hospital_path(@hospital)
               %li.divider
-              %li.dropdown-header{:role => "presentation"} Patient List 
-              - @hospital.patients.each do |pat|
-                %li
-                  = link_to "#{pat.last_name}", hospital_patient_path(@hospital, pat)   
+              %li
+                = link_to "Hospitals Home", hospitals_path
+          %li
+            = link_to "Add Patient", new_hospital_patient_path(@hospital)
+          %li
+            %form.navbar-form.navbar-left{:role => "search"}
+              .input-group
+                %input.form-control{:placeholder => "Find Patient", :type => "text", :class => "hospital_patient_search"}
+                  %span.input-group-btn
+                    %button.btn.btn-default{:type => "button", :class => "search_hospital_patients", :link => search_hospital_patients_hospital_patients_path(@hospital)} Go
+
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -46,7 +53,9 @@
     / /.navbar-collapse
   / /.container-fluid
 .row.text-center
-  .col-md-12
+  .col-md-1
+  .col-md-10
+    %ul.search_list
     - @hospital.patients.each do |pat|
       .panel.panel-success
         .panel-heading

@@ -4580,7 +4580,7 @@ a.list-group-item.active > .badge,
   }
   .jumbotron h1,
   .jumbotron .h1 {
-    text-shadow: #5D5DB5 2px 2px;
+    text-shadow: 1px 1px 2px black, 0 0 2px blue, 0 0 3px blue;;
     color: #1F1F99;
     font-size: 63px;
   }

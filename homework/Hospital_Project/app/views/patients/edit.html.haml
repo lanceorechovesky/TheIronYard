@@ -65,12 +65,12 @@
   %br/
   %hr/
   
-= "Add Doctor to team"  
-= form_for @doctor, url: create_doctor_hospital_patient_path(@hospital, @patient) do |f|
-  = f.label :name
-  = f.text_field :name
-  %br/
-  =f.submit "Add Doctor"
+/ = "Add Doctor to team"  
+/ = form_for @doctor, url: create_doctor_hospital_patient_path(@hospital, @patient) do |f|
+/   = f.label :name
+/   = f.text_field :name
+/   %br/
+/   =f.submit "Add Doctor"
 
 
 

@@ -1,12 +1,24 @@
 class PatientsController < ApplicationController
-  before_action :find_hospital, only: [:index, :show, :new, :create, :edit, :update, :create_doctor, :destroy_doctor, :with_dr, :admitted, :test, :surgery, :prep_dis, :pay_bill]
+  before_action :find_hospital, only: [:index, :search_hospital_patients, :show, :new, :create, :edit, :update, :destroy, :create_doctor, :destroy_doctor, :with_dr, :admitted, :test, :surgery, :prep_dis, :pay_bill]
   before_action :find_patient, only: [:show, :edit, :update, :destroy, :create_doctor, :destroy_doctor]
   
   def index
-    @patient = Patient.all
+    @patients = Patient.all
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def search_hospital_patients
+    @patients = @hospital.patients.where("first_name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show
+    @doctor = @patient.doctors.new
   end
 
   def new
@@ -23,7 +35,6 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    @doctor = @patient.doctors.new
   end
 
   def update

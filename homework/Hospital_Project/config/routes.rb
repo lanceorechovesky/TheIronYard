@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#title'
   get '/search_hospitals' => 'hospitals#search_hospitals'
-
+  
   resources :hospitals do
     member do
       post :create_doctor
-      delete :destroy_doctor
+      delete :destroy_doctor      
     end
     resources :patients do
-      member do
+      member do        
         post :create_doctor
         delete :destroy_doctor
         put :waiting_room
@@ -19,6 +19,9 @@ Rails.application.routes.draw do
         put :surgery
         put :prep_dis
         put :pay_bill
+      end
+      collection do 
+        get '/search_hospital_patients' => 'patients#search_hospital_patients'
       end
       resources :medications
     end
