@@ -60,7 +60,9 @@
               = "#{hos.phone_number}"
             %br/
     - group_number_total.times do |x|
-      = link_to x + 1, "javascript:void(0);", class: "new_page"            
+      %ul.pagination
+        %li
+          = link_to x + 1, "javascript:void(0);", class: "new_page"          
 
 
 
