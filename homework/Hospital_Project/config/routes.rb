@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   get '/search_hospitals' => 'hospitals#search_hospitals'
   
   resources :hospitals do
+
     member do
       post :create_doctor
       delete :destroy_doctor      
     end
+
     resources :patients do
       member do        
         post :create_doctor
@@ -20,10 +22,17 @@ Rails.application.routes.draw do
         put :prep_dis
         put :pay_bill
       end
+
       collection do 
         get '/search_hospital_patients' => 'patients#search_hospital_patients'
       end
-      resources :medications
+
+      resources :medications do
+        collection do 
+          get '/search_patient_medications' => 'medications#search_patient_medications'
+        end
+      end
+
     end
   end
 end

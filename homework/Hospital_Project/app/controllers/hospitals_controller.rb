@@ -11,6 +11,7 @@ class HospitalsController < ApplicationController
   end
 
   def show
+    @doctor = @hospital.doctors.new
   end
 
   def new
@@ -27,7 +28,6 @@ class HospitalsController < ApplicationController
   end
 
   def edit
-    @doctor = @hospital.doctors.new
   end
 
   def update

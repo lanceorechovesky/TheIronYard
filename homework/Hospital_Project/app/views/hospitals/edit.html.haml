@@ -1,3 +1,4 @@
+- javascript 'hospitals.js'
 %nav.navbar.navbar-default{:role => "navigation"}
   .container-fluid
     / Brand and toggle get grouped for better mobile display
@@ -38,7 +39,7 @@
   / /.container-fluid
 
 .row.text-center
-  .col-md-6 
+  .col-md-2 
     
     = form_for @hospital do |f|
       %ul
@@ -47,50 +48,43 @@
           - @hospital.errors.full_messages.each do |msg|
             %li
               = msg
-.row.text-center
-  .col-md-1
-  .col-md-5
+  .col-md-8
     .panel.panel-success
       .panel-heading
         %h3
           = "Edit #{@hospital.name}'s Data"
       .panel-body
-        %form.form-horizontal{:role => "form"}
-          = form_for @hospital do |f|
-            .form-group
-              .col-sm-3.col-md-3
-              .col-sm-6.col-md-6
-                = f.label :name, "Hospital Name:"
-                = f.text_field :name, class: "form-control"        
-            .form-group
-              .col-sm-3.col-md-3
-              .col-sm-6.col-md-6
-                = f.label :address, "Hospital Address:"
-                = f.text_field :address, class: "form-control"
-            .form-group
-              .col-sm-3.col-md-3
-              .col-sm-6.col-md-6
-                = f.label :phone_number, "Hospital Phone Number:"
-                = f.text_field :phone_number, class: "form-control"
-            .form-group
-              .col-sm-12
-                %button.btn.btn-success{:type => "submit"} Edit
-  .col-md-1
-  .col-md-3
-    .panel.panel-success
-      .panel-heading
-        %h3 Add a Docter
-      .panel-body
-        %form.form-horizontal{:role => "form"}
-          = form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|    
-            .form-group
-              .col-md-2
-              .col-sm-8.col-md-8
-                = f.label :name, "Doctor coming on call"
-                = f.text_field :name, class: "form-control" 
-            .form-group
-              .col-sm-12
-                %button.btn.btn-success{:type => "submit"} Add Doctor
+        = form_for @hospital do |f|
+          = f.label :name, "Hospital Name:"
+          %br/
+          = f.text_field :name
+          %br/
+          %br/       
+          = f.label :address, "Hospital Address:"
+          %br/
+          = f.text_field :address
+          %br/
+          %br/
+          = f.label :phone_number, "Hospital Phone Number:"
+          %br/
+          = f.text_field :phone_number
+          .col-sm-12
+            %button.btn.btn-success{:type => "submit"} Edit
+  .col-md-2
+    / .panel.panel-success
+    /   .panel-heading
+    /     %h3 Add a Docter
+    /   .panel-body
+    /     %form.form-horizontal{:role => "form"}
+    /       = form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|    
+    /         .form-group
+    /           .col-md-2
+    /           .col-sm-8.col-md-8
+    /             = f.label :name, "Doctor coming on call"
+    /             = f.text_field :name, class: "form-control" 
+    /         .form-group
+    /           .col-sm-12
+    /             %button.btn.btn-success{:type => "submit"} Add Doctor
          
 
 

@@ -31,15 +31,14 @@
                 = link_to "Hospitals Home", hospitals_path
           %li
             = link_to "Add Patient", new_hospital_patient_path(@hospital)
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
           %li
-            %form.navbar-form.navbar-left{:role => "search"}
+            %form.navbar-form.navbar-right{:role => "search"}
               .input-group
                 %input.form-control{:placeholder => "Find Patient", :type => "text", :class => "hospital_patient_search"}
                   %span.input-group-btn
                     %button.btn.btn-default{:type => "button", :class => "search_hospital_patients", :link => search_hospital_patients_hospital_patients_path(@hospital)} Go
-
-      %ul.nav.navbar-nav.navbar-right
-        - if user_signed_in?
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               Account
@@ -52,19 +51,25 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
+- group_number_total = 0
 .row.text-center
   .col-md-1
   .col-md-10
     %ul.search_list
-    - @hospital.patients.each do |pat|
-      .panel.panel-success
-        .panel-heading
-          %h1.panel-title 
-            = link_to "#{pat.first_name} #{pat.last_name}", hospital_patient_path(@hospital, pat)
-        .panel-body
-          = "#{pat.dob}"
-          = "#{pat.workflow_state}"
-        %br/
+    - @hospital.patients.all.each_slice(3) do |patient_group|
+      - group_number_total += 1
+      - patient_group.each do |pat|
+        %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} patient_list"}
+          .panel.panel-success
+            .panel-heading
+              %h1.panel-title 
+                = link_to "#{pat.first_name} #{pat.last_name}", hospital_patient_path(@hospital, pat)
+            .panel-body
+              = "#{pat.dob}"
+              = "#{pat.workflow_state}"
+            %br/
+    - group_number_total.times do |x|
+      = link_to x + 1, "javascript:void(0);", class: "new_page" 
 
 / %h1 Patient Databank
 / - @hospital.patients.each do |pat|

@@ -56,7 +56,7 @@
 
 .row.text-center
   .col-md-1
-  .col-md-10
+  .col-md-5
     .panel.panel-success
       .panel-heading
         %h1.panel-title 
@@ -87,9 +87,24 @@
         - @hospital.doctors.each do |doc|
           - if doc.name
             = doc.name
-            = link_to "*remove*", destroy_doctor_hospital_path(@hospital, doctor_id: doc.id), method: :delete
             %br/
-
+  .col-md-1
+  .col-md-3
+    .panel.panel-success
+      .panel-heading
+        %h5 Add a Docter
+      .panel-body
+        %form.form-horizontal{:role => "form"}
+        = form_for @doctor, url: create_doctor_hospital_path(@hospital) do |f|    
+          .form-group
+            .col-md-2
+            .col-sm-8.col-md-8
+              = f.label :name, "Doctor coming on call"
+              = f.text_field :name, class: "form-control" 
+          .form-group
+            .col-sm-12
+              %button.btn.btn-success{:type => "submit"} Add Doctor
+  
 
 
 

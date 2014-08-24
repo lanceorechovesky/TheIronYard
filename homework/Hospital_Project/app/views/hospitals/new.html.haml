@@ -34,12 +34,8 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluids
-
-
-
 .row.text-center
   .col-md-12
-    %h1 Add a hospital to the list
     = form_for @hospital do |f|
       %ul
         - if @hospital.errors.any?
@@ -47,22 +43,27 @@
           - @hospital.errors.full_messages.each do |msg|
             %li
               = msg
-      %strong
-        = f.label :name
-      %br/
-      = f.text_field :name
-      %br/
-      %br/
-      %strong
-        = f.label :address
-      %br/
-      = f.text_field :address
-      %br/
-      %br/
-      %strong
-        = f.label :phone_number
-      %br/
-      = f.text_field :phone_number
-      %br/
-      %br/
-      = f.submit "Add"  
+.row.text-center
+  .col-md-3
+  .col-md-6
+    .panel.panel-success
+      .panel-heading
+        %h1 Add a hospital to the list
+      .panel-body 
+        = form_for @hospital do |f|
+          = f.label :name, "Hospital Name:"
+          %br/
+          = f.text_field :name
+          %br/
+          %br/
+          = f.label :address, "Hospital Address:"
+          %br/
+          = f.text_field :address
+          %br/
+          %br/
+          = f.label :phone_number, "Hospital Phone Number:"
+          %br/
+          = f.text_field :phone_number
+          .col-md-12.col-sm-12
+            %button.btn.btn-success{:type => "submit"} Add
+            

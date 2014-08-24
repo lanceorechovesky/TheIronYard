@@ -1,9 +1,20 @@
 class MedicationsController < ApplicationController
-  before_action :find_hospital, only: [:index, :show, :new, :create, :edit, :update]
-  before_action :find_patient, only: [:index, :show, :new, :create, :edit, :update]
+  before_action :find_hospital, only: [:search_patient_medications, :index, :show, :new, :create, :edit, :update]
+  before_action :find_patient, only: [:search_patient_medications, :index, :show, :new, :create, :edit, :update]
 
   def index
-    @Medication = Medication.all
+    @medications = Medication.all
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def search_patient_medications
+    @medications = @patient.medications.where("name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show

@@ -20,19 +20,14 @@
         - if user_signed_in?          
           %li
             = link_to "Add Hospital", new_hospital_path
-          %li
-            %form.navbar-form.navbar-left{:role => "search"}
-              .input-group
-                %input.form-control{:placeholder => "Find Hospital", :type => "text", :class => "hospital_search"}
-                  %span.input-group-btn
-                    %button.btn.btn-default{:type => "button", :class => "search_hospitals"} Go
-          / %li
-          /   %form.navbar-form.navbar-left{:role => "search"}
-          /     .input-group
-          /       %input.form-control{:placeholder => "Find Patient", :type => "text", :class => "patient_search"}
-          /         %span.input-group-btn
-          /           %button.btn.btn-default{:type => "button", :class => "search_patients"} Go
       %ul.nav.navbar-nav.navbar-right
+        %li
+          /   %form.navbar-form.navbar-left{:role => "search"}
+          %form.navbar-form.navbar-right{:role => "search"}
+            .input-group
+              %input.form-control{:placeholder => "Find Hospital", :type => "text", :class => "hospital_search"}
+                %span.input-group-btn
+                  %button.btn.btn-default{:type => "button", :class => "search_hospitals"} Go
         - if user_signed_in?
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
@@ -46,21 +41,26 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
-
+- group_number_total = 0
 .row.text-center 
-  .col-md-1
-  .col-md-10
+  .col-md-2
+  .col-md-8
     %ul.search_list
-    - @hospitals.each do |hos|
-      .panel.panel-success.hospital_list
-        .panel-heading
-          %h1.panel-title 
-            = link_to "#{hos.name}", hospital_path(hos)
-        .panel-body
-          = "#{hos.address}"
-          %br
-          = "#{hos.phone_number}"
-        %br/
+    - Hospital.all.each_slice(3) do |hospital_group|
+      - group_number_total += 1
+      - hospital_group.each do |hos|    
+        %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} hospital_list"}
+          .panel.panel-success
+            .panel-heading
+              %h1.panel-title 
+                = link_to "#{hos.name}", hospital_path(hos)
+            .panel-body
+              = "#{hos.address}"
+              %br
+              = "#{hos.phone_number}"
+            %br/
+    - group_number_total.times do |x|
+      = link_to x + 1, "javascript:void(0);", class: "new_page"            
 
 
 

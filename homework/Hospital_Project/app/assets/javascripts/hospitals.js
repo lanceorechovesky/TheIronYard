@@ -14,6 +14,13 @@ $(document).ready(function() {
     })
   })
 
+  $(".new_page").click(function() {
+    var new_page = $(this).html()
+    console.log(new_page)
+    $(".hospital_list").addClass("hidden")
+    $(".group_" + new_page).removeClass("hidden")
+  })
+
   // $('#hospital_name').on('input', function() {
   //   var input=$(this);
   //   var is_name=input.val();

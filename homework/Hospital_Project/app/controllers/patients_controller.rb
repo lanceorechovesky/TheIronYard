@@ -1,7 +1,6 @@
 class PatientsController < ApplicationController
   before_action :find_hospital, only: [:index, :search_hospital_patients, :show, :new, :create, :edit, :update, :destroy, :create_doctor, :destroy_doctor, :with_dr, :admitted, :test, :surgery, :prep_dis, :pay_bill]
-  before_action :find_patient, only: [:show, :edit, :update, :destroy, :create_doctor, :destroy_doctor]
-  
+  before_action :find_patient, only: [:show, :edit, :update, :destroy]
   def index
     @patients = Patient.all
     respond_to do |format|
@@ -51,50 +50,58 @@ class PatientsController < ApplicationController
   end
 
   def create_doctor
-    @doctor = @patient.doctors.create doc_data
+    @patient = @hospital.patients.find params[:id]
+    @doctors = @patient.doctors.create doc_data
     redirect_to hospital_patient_path(@hospital, @patient)
   end
 
   def destroy_doctor
-    @doctor = find_doc
+    @patient = @hospital.patients.find params[:id]
+    @doctor = @patient.doctors.find params[:doctor_id]
     @doctor.delete
     redirect_to hospital_patient_path(@hospital, @patient)
   end
 
   def with_dr
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.seeing_dr!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
 
   def admitted
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.admitting!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
 
   def test
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.testing!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
 
   def surgery
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.cutting!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
 
   def prep_dis
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.preping!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
 
   def pay_bill
+    @patient_id = @hospital.patients.find params[:id]
     @patient = find_patient.leaving!
-    redirect_to hospital_patients_path(@hospital)
+    redirect_to hospital_patient_path(@hospital, @patient_id)
   end
   
 private
-  def find_doc
-    @doctor = Doctor.find params[:doctor_id]
-  end
+  # def find_doctor
+  #   @doctor = Doctor.find params[:doctor_id]
+  # end
 
   def find_hospital
     @hospital = Hospital.find params[:hospital_id]

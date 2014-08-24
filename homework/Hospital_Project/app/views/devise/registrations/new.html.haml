@@ -31,24 +31,29 @@
   / /.container-fluid
 
 .row.text-center
-  .col-md-12
-    %h2 Sign up
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = devise_error_messages!
-      %div
-        = f.label :email
-        %br/
-        = f.email_field :email, autofocus: true
-      %div
-        = f.label :password
-        - if @validatable
-          %i
-            (#{@minimum_password_length} characters minimum)
-        %br/
-        = f.password_field :password, autocomplete: "off"
-      %div
-        = f.label :password_confirmation
-        %br/
-        = f.password_field :password_confirmation, autocomplete: "off"
-      %div= f.submit "Sign up", class: "submit", disabled: 'disabled'
-    = render "devise/shared/links"
+  .col-md-3
+  .col-md-6
+    .panel.panel-success
+      .panel-heading
+        %h1.panel-title Sign up
+      .panel-body 
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          %div
+            = f.label :email
+            %br/
+            = f.email_field :email, autofocus: true
+          %div
+            = f.label :password
+            - if @validatable
+              %i
+                (#{@minimum_password_length} characters minimum)
+            %br/
+            = f.password_field :password, autocomplete: "off"
+          %div
+            = f.label :password_confirmation
+            %br/
+            = f.password_field :password_confirmation, autocomplete: "off"
+          %div= f.submit "Sign up", class: "submit", disabled: 'disabled'
+        = render "devise/shared/links"
+    
