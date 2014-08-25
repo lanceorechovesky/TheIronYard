@@ -21,6 +21,7 @@ $(document).ready(function() {
     $(".group_" + new_page).removeClass("hidden")
   })
 
+  $( "#accordion" ).accordion();
   // $('#hospital_name').on('input', function() {
   //   var input=$(this);
   //   var is_name=input.val();

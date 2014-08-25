@@ -45,24 +45,39 @@
 .row.text-center 
   .col-md-2
   .col-md-8
-    %ul.search_list
-    - Hospital.all.each_slice(3) do |hospital_group|
-      - group_number_total += 1
-      - hospital_group.each do |hos|    
-        %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} hospital_list"}
-          .panel.panel-success
-            .panel-heading
-              %h1.panel-title 
-                = link_to "#{hos.name}", hospital_path(hos)
+    #accordion.panel-group
+      - Hospital.all.each do |hos|
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{hos.id}"}
+                = "#{hos.name}"
+          .panel-collapse.collapse{id: "collapse_#{hos.id}"}
             .panel-body
               = "#{hos.address}"
               %br
               = "#{hos.phone_number}"
-            %br/
-    - group_number_total.times do |x|
-      %ul.pagination
-        %li
-          = link_to x + 1, "javascript:void(0);", class: "new_page"          
+
+    / %ul.search_list
+    /   #accordion.panel-group
+    /     - Hospital.all.each_slice(5) do |hospital_group|
+    /       - group_number_total += 1
+    /       - hospital_group.each do |hos|              
+    /         %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} hospital_list"}
+    /           .panel.panel-success
+    /             .panel-heading
+    /               %h1.panel-title
+    /                 %a{"data-parent" => "#accordion.panel-group", "data-toggle" => "collapse", :href => "#collapse"}
+    /                   = "#{hos.name}"
+    /             #collapse.panel-collapse.collapse.in
+    /               .panel-body
+    /                 = "#{hos.address}"
+    /                 %br
+    /                 = "#{hos.phone_number}"
+    / - group_number_total.times do |x|
+    /   %ul.pagination
+    /     %li
+    /       = link_to x + 1, "javascript:void(0);", class: "new_page"          
 
 
 
