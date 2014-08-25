@@ -22,6 +22,10 @@ $(document).ready(function() {
   })
 
   $( "#accordion" ).accordion();
+
+  // $("a.toggle").click( function({
+  //   if( ($(this)).att )
+  // })
   // $('#hospital_name').on('input', function() {
   //   var input=$(this);
   //   var is_name=input.val();
@@ -30,3 +34,4 @@ $(document).ready(function() {
   // });
   
 })
+// 

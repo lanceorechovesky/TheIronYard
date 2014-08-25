@@ -45,9 +45,12 @@
 .row.text-center 
   .col-md-2
   .col-md-8
+    %ul.search_list
     #accordion.panel-group
-      - Hospital.all.each do |hos|
-        .panel.panel-success
+    - Hospital.all.each_slice(6) do |hospital_group|
+      - group_number_total += 1
+      - hospital_group.each do |hos|
+        .panel.panel-success{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} hospital_list"}
           .panel-heading
             %h4.panel-title
               %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{hos.id}"}
@@ -55,8 +58,15 @@
           .panel-collapse.collapse{id: "collapse_#{hos.id}"}
             .panel-body
               = "#{hos.address}"
-              %br
+              %br/
               = "#{hos.phone_number}"
+              %br/
+              %strong
+                = link_to "View Data", hospital_path(hos)
+    - group_number_total.times do |x|
+      %ul.pagination
+        %li
+          = link_to x + 1, "javascript:void(0);", class: "new_page"
 
     / %ul.search_list
     /   #accordion.panel-group
