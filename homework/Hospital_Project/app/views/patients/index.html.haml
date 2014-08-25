@@ -56,18 +56,23 @@
   .col-md-1
   .col-md-10
     %ul.search_list
-    - @hospital.patients.all.each_slice(3) do |patient_group|
+    #accordion.panel-group
+    - @hospital.patients.all.each_slice(6) do |patient_group|
       - group_number_total += 1
       - patient_group.each do |pat|
-        %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} patient_list"}
-          .panel.panel-success
-            .panel-heading
-              %h1.panel-title 
-                = link_to "#{pat.first_name} #{pat.last_name}", hospital_patient_path(@hospital, pat)
+        .panel.panel-success{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} patient_list"}
+          .panel-heading
+            %h4.panel-title
+              %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{pat.id}"} 
+                = "#{pat.first_name} #{pat.last_name}"
+          .panel-collapse.collapse{id: "collapse_#{pat.id}"}      
             .panel-body
               = "#{pat.dob}"
+              %br/
               = "#{pat.workflow_state}"
-            %br/
+              %br/
+              %strong
+                = link_to "View Data", hospital_patient_path(@hospital, pat)
     - group_number_total.times do |x|
       %ul.pagination
         %li

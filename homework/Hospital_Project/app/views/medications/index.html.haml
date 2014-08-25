@@ -67,20 +67,28 @@
   .col-md-3
   .col-md-6
     %ul.search_list
-    - @patient.medications.all.each_slice(3) do |medication_group|
+    #accordion.panel-group
+    - @patient.medications.all.each_slice(6) do |medication_group|
       - group_number_total += 1
       - medication_group.each do |med|
-        %li{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} medication_list"}
-          .panel.panel-success
-            .panel-heading
-              %h1.panel-title 
-                = link_to med.name, hospital_patient_medication_path(@hospital, @patient, med)
+        .panel.panel-success{class: "#{'hidden' if group_number_total >= 2} group_#{group_number_total} medication_list"}
+          .panel-heading
+            %h4.panel-title
+              %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{med.id}"}  
+                = "#{med.name}"
+          .panel-collapse.collapse{id: "collapse_#{med.id}"}      
             .panel-body
               %strong
                 - if med.restricted == false
                   %h4 Over Counter
                 - else
                   %h4 Restricted
+              %strong
+                = "Dose in Milligrams"
+              %br/
+              = "#{med.dose}"
+              %br/
+              = link_to "View Data", hospital_patient_medication_path(@hospital, @patient, med)
     - group_number_total.times do |x|
       %ul.pagination
         %li

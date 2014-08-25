@@ -97,7 +97,14 @@
           %br/
           = f.label :complaint
           %br/
-          = f.text_field :complaint 
+          = f.text_field :complaint
+          %br/
+          %br/ 
+          = f.label :sex, "Gender"
+          %br/
+          = f.collection_radio_buttons(                                                             |
+              :sex, [['Male', 'Male'], ['Female', 'Female'], ['Asexual','Asexual']], :first, :last, |
+            )
           .col-sm-12
             %button.btn.btn-success{:type => "submit"} Edit
   .col-md-3  

@@ -20,5 +20,6 @@ $(document).ready(function() {
     $(".group_" + new_page).removeClass("hidden")
   })
 
+  $( "#accordion" ).accordion();
 
 })

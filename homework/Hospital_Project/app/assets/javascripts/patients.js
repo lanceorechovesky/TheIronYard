@@ -20,6 +20,8 @@ $(document).ready(function() {
     $(".group_" + new_page).removeClass("hidden")
   })
 
+  $( "#accordion" ).accordion();
+
   // $(".workflow_change").on( 'change', function() {
   //   var link = $(this).attr("link")
   //   $.ajax({
