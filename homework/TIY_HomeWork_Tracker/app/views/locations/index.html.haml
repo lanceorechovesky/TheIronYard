@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand{:href => "/"} Welcome!
+      %a.navbar-brand{:href => "/"} Home
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
@@ -16,9 +16,9 @@
             = content_tag(:a, current_user.nickname)
           - else
             = link_to "Log In", new_user_session_path
-        - if user_signed_in?
+        - if current_user.admin?
           %li
-            = link_to "Locations", locations_path
+            = link_to "Add Location", new_location_path
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -39,3 +39,38 @@
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
+
+%h1 Locations
+- @locations.each do |loc|
+  %br
+  = loc.name
+  %strong
+    = loc.workflow_state
+  %br/
+  = loc.address
+  %br/
+  / = check_box_tag 'user[location_ids][]', loc.id, current_user.locations.include?(loc)
+  / %button.btn.btn-success{:type => "submit"} Save
+  / %br/
+  / %br/
+  - if loc.workflow_state == "fresh"
+    %button.btn.btn-default{:type => "button", :class => "workflow_change" + "#{loc.id}", :link => picked_location_path(loc)} Save
+    %button.btn.btn-default{:type => "button", :class => "workflow_change", :link => rejected_location_path(loc)} Remove
+  - if loc.workflow_state == "rejected"
+    - if current_user.admin?
+      %button.btn.btn-default{:type => "button", :class => "workflow_change", :link => fresh_location_path(loc)} Reset
+  - if loc.workflow_state == "picked"
+    - if current_user.admin?
+      %button.btn.btn-default{:type => "button", :class => "workflow_change", :link => fresh_location_path(loc)} Reset
+
+
+
+
+
+
+
+
+
+
+
+

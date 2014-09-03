@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand{:href => "/"} Welcome!
+      %a.navbar-brand{:href => "/"} Home
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
@@ -16,9 +16,6 @@
             = content_tag(:a, current_user.nickname)
           - else
             = link_to "Log In", new_user_session_path
-        - if user_signed_in?
-          %li
-            = link_to "Locations", locations_path
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -28,14 +25,32 @@
             %ul.dropdown-menu{:role => "menu"}
               %li
                 = link_to "Edit Account", edit_user_registration_path
-              - if current_user.admin?
-                %li.divider
-                %li
-                  - @user_list.each do |user|
-                    = user.nickname
-                    %br/
               %li.divider
               %li
                 = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
+%h2 Sign up
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  %div
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true
+  %div
+    = f.label :nickname
+    %br/
+    = f.text_field :nickname
+  %div
+    = f.label :password
+    - if @validatable
+      %i
+        (#{@minimum_password_length} characters minimum)
+    %br/
+    = f.password_field :password, autocomplete: "off"
+  %div
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation, autocomplete: "off"
+  %div= f.submit "Sign up"
+= render "devise/shared/links"
