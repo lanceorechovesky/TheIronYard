@@ -14,7 +14,7 @@
       %ul.nav.navbar-nav
         %li.active
           - if user_signed_in?
-            = content_tag(:a, current_user.email)
+            = content_tag(:a, current_user.nickname)
           - else
             = link_to "Log In", new_user_session_path
         - if user_signed_in?
@@ -31,6 +31,7 @@
               %li.divider
               %li
                 = link_to "Hospitals Home", hospitals_path
+        - if current_user.admin?
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               Edit
@@ -45,8 +46,8 @@
               - @patient.doctors.each do |doc|
                 %li
                   = link_to "#{doc.name}", destroy_doctor_hospital_patient_path(@hospital, @patient, doctor_id: doc.id), method: :delete
-          %li
-            = link_to "#{@patient.last_name}'s Medications", hospital_patient_medications_path(@hospital, @patient)
+        %li
+          = link_to "#{@patient.last_name}'s Medications", hospital_patient_medications_path(@hospital, @patient)
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           %li.dropdown
@@ -108,10 +109,16 @@
             %strong= "Doctor Team"
             %br/
             - @patient.doctors.each do |doc|
-              - if doc.name
-                = doc.name
-                = link_to "*remove*", destroy_doctor_hospital_patient_path(@hospital, @patient, doctor_id: doc.id), method: :delete
-                %br/
+              - if current_user.admin?
+                - if doc.name
+                  = doc.name
+                  = link_to "*remove*", destroy_doctor_hospital_patient_path(@hospital, @patient, doctor_id: doc.id), method: :delete
+                  %br/
+              - else    
+                - if doc.name
+                  = doc.name
+                  %br/
+
   .col-md-1
   .col-md-3
     .panel.panel-success
@@ -125,65 +132,67 @@
             .col-sm-8.col-md-8
               = f.label :name, "Doctor coming on call"
               = f.text_field :name, class: "form-control" 
-          .form-group
-            .col-sm-12
-              %button.btn.btn-success{:type => "submit"} Add Doctor
-  .col-md-6
-  .col-md-1
-  .col-md-3
-    .panel.panel-success
-      .panel-heading
-        %h3
-          = "Update #{@patient.last_name}'s Status"
-      .panel-body
-        %form.form-horizontal{:role => "form"}
-          = form_for [@hospital, @patient] do |f|
+          - if current_user.admin?
             .form-group
-            .col-md-2
-            .col-sm-8.col-md-8
-              - if @patient.workflow_state == "waiting_room"
-                = link_to "seeing dr", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "with_dr"
-                = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "discharging", prep_dis_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "admitted"
-                = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "discharging", prep_dis_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "test"
-                = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "surgery"
-                = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "prep_dis"
-                = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-                %br/
-                = link_to "Paying", pay_bill_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
-              - if @patient.workflow_state == "pay_bill"  
-                = f.label :postdis_commit
-                = f.text_field :postdis_commit
-    
+              .col-sm-12
+                %button.btn.btn-success{:type => "submit"} Add Doctor
+  - if current_user.admin?
+    .col-md-6
+    .col-md-1
+    .col-md-3
+      .panel.panel-success
+        .panel-heading
+          %h3
+            = "Update #{@patient.last_name}'s Status"
+        .panel-body
+          %form.form-horizontal{:role => "form"}
+            = form_for [@hospital, @patient] do |f|
+              .form-group
+              .col-md-2
+              .col-sm-8.col-md-8
+                - if @patient.workflow_state == "waiting_room"
+                  = link_to "seeing dr", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "with_dr"
+                  = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "discharging", prep_dis_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "admitted"
+                  = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "discharging", prep_dis_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "test"
+                  = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "surgery"
+                  = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "prep_dis"
+                  = link_to "admit", admitted_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "dr confrence", with_dr_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "Testing", test_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "surgery", surgery_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                  %br/
+                  = link_to "Paying", pay_bill_hospital_patient_path, method: :put, :class => "btn btn-success btn-xs"
+                - if @patient.workflow_state == "pay_bill"  
+                  = f.label :postdis_commit
+                  = f.text_field :postdis_commit
+        

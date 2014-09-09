@@ -13,12 +13,13 @@
       %ul.nav.navbar-nav
         %li.active
           - if user_signed_in?
-            = content_tag(:a, current_user.email)
+            = content_tag(:a, current_user.nickname)
           - else
             = link_to "Log In", new_user_session_path
         - if user_signed_in?
           %li
             = link_to "Hospitals", hospitals_path
+        - if current_user.admin?
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               Edit
@@ -100,10 +101,11 @@
             .col-md-2
             .col-sm-8.col-md-8
               = f.label :name, "Doctor coming on call"
-              = f.text_field :name, class: "form-control" 
-          .form-group
-            .col-sm-12
-              %button.btn.btn-success{:type => "submit"} Add Doctor
+              = f.text_field :name, class: "form-control"
+          - if current_user.admin? 
+            .form-group
+              .col-sm-12
+                %button.btn.btn-success{:type => "submit"} Add Doctor
   
 
 

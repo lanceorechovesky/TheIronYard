@@ -13,7 +13,7 @@
       %ul.nav.navbar-nav
         %li.active
           - if user_signed_in?
-            = content_tag(:a, current_user.email)
+            = content_tag(:a, current_user.nickname)
           - else
             = link_to "Log In", new_user_session_path
         - if user_signed_in?

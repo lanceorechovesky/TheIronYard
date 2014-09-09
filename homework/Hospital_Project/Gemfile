@@ -1,14 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'jquery-ui-rails', '~> 5.0.0'
-
 gem 'devise', '~> 3.3.0'
+gem 'pundit', '~> 0.3.0'
 
+gem 'haml-rails', '~> 0.5.3'
 gem 'html2haml'
 
 gem 'workflow'
-
-gem 'haml-rails', '~> 0.5.3'
 
 gem 'validates_timeliness', '~> 3.0'
 
@@ -30,6 +28,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 5.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

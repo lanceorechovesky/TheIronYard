@@ -11,6 +11,19 @@ describe HospitalsController do
     expect(assigns(:hospitals).class).to eq(Hospital::ActiveRecord_Relation)
   end
 
+  describe "GET #show" do
+    it 'should find an object and create a doctor' do
+      sign_in
+      get :show, id: hospital
+
+      expect(assigns(:hospital)).to eq(hospital)
+      expect(assigns(:hospital).class).to eq(Hospital)
+
+      expect(assigns(:doctor).doctorable).to eq(hospital)
+      expect(assigns(:doctor).class).to eq(Doctor)
+    end
+  end
+
   it 'GET #new' do
     sign_in
     get :new
@@ -44,18 +57,15 @@ describe HospitalsController do
     end
   end
 
-  describe "GET #show" do
-    it 'should find an object and create a doctor' do
-      sign_in
-      get :show, id: hospital
+  # describe "PATCH #update" do
+  #   it 'updated successfuly' do
+  #     sign_in
+  #     patch :update, id: hospital
+      
+  #   end
+  # end
 
-      expect(assigns(:hospital)).to eq(hospital)
-      expect(assigns(:hospital).class).to eq(Hospital)
 
-      expect(assigns(:doctor).doctorable).to eq(hospital)
-      expect(assigns(:doctor).class).to eq(Doctor)
-    end
-  end
 
 
 end
