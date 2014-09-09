@@ -1,4 +1,0 @@
-$("ul.search_list").html("")
-<% @medications.each do |medication| %>
-  $("ul.search_list").append("<%= escape_javascript(render('medications/medication_partial', comp_medication: medication )) %>")
-<% end %>

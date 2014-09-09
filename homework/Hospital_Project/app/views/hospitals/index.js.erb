@@ -1,3 +1,0 @@
-<% @hospitals.each do |hospital| %>
-  $("ul.hospitals").append("<%= escape_javascript(render('hospitals/hospital_partial', comp_hospital: hospital )) %>")
-<% end %>
